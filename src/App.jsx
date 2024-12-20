@@ -13,15 +13,15 @@ function App() {
   ];
 
   const [phone, setPhone] = useState(
-    JSON.parse(localStorage.getItem("contacts"))
+    JSON.parse(localStorage.getItem("contacts")) || arrayContacts
   );
+
   useEffect(() => {
     localStorage.setItem("contacts", JSON.stringify(phone));
-  });
+  }, [phone]);
+
   const addTask = (newTask) => {
-    setPhone((prevTasks) => {
-      return [...prevTasks, newTask];
-    });
+    setPhone((prevTasks) => [...prevTasks, newTask]);
   };
 
   const [findName, setFindName] = useState("");
@@ -31,9 +31,7 @@ function App() {
   );
 
   const deleteNumber = (numberId) => {
-    setPhone((prevItem) => {
-      return prevItem.filter((item) => item.id !== numberId);
-    });
+    setPhone((prevItem) => prevItem.filter((item) => item.id !== numberId));
   };
 
   return (
